@@ -51,23 +51,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String _errorMessage = '';
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-
-
-
   @override
 
   Widget build(BuildContext context) {
@@ -156,9 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       style: TextStyle(fontSize: 22, fontWeight: FontWeight. bold)
                                   )
                               ),
-                              Align(
-                              alignment: Alignment(-1, -0.65),
-                              child: Text(
+                                Align(
+                                alignment: Alignment(-1, -0.65),
+                                  child: Text(
                                       "Email Address",
                                       style: TextStyle(fontSize: 10, color: Colors.grey )
                                   )
@@ -261,9 +244,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   Align(
                                       alignment: Alignment(0, 0.9),
-                                      child: Text(
-                                          "SIGN UP NOW",
-                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight. bold, color: Colors.blue)
+                                      child: FloatingActionButton.extended(
+                                            extendedPadding:
+                                            EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                                            label: Text('SIGN UP NOW'),
+                                            backgroundColor: Colors.white,
+                                            foregroundColor: Colors.blue,
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => SignupPage()),
+                                              );
+                                        }
                                       )
                                   ),
                                 ],
@@ -283,3 +275,128 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+class SignupPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment(1, -1),
+            // ignore: unnecessary_new
+            child: new IconButton(
+              icon: new Icon(Icons.close),
+              onPressed: () => Navigator.of(context).pop(null),
+            ),
+          ),
+          Align(
+              alignment: Alignment(-1, -0.8),
+              child: Text(
+                  "Signup to create an acount",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight. bold)
+              )
+          ),
+          Align(
+              alignment: Alignment(-1, -0.7),
+              child: Text(
+                  "Email Address",
+                  style: TextStyle(fontSize: 10, color: Colors.grey )
+              )
+          ),
+          Align(
+            alignment: Alignment(-1, -0.55),
+            child: TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(labelText: 'Enter email address'),
+              controller: _emailController,
+            ),
+          ),
+          Align(
+            alignment: Alignment(0, -0.3),
+            child: FloatingActionButton.extended(
+              extendedPadding:
+              EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+              label: Text('SIGN UP'),
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              onPressed: () {
+                _isValid = EmailValidator.validate(_emailController.text);
+                if (_isValid) {
+                  Fluttertoast.showToast(
+                      msg: "Valid Email",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                      fontSize: 16.0);
+                } else if (_emailController.text.isEmpty) {
+                  Fluttertoast.showToast(
+                      msg: 'Enter Email',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                      fontSize: 16.0);
+                } else {
+                  Fluttertoast.showToast(
+                      msg: 'Enter a Valid Email',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                      fontSize: 16.0);
+                }
+              },
+            ),
+          ),
+          Align(
+              alignment: Alignment(0, -0.2),
+              child: Text(
+                  "---------------------------------------or---------------------------------",
+                  style: TextStyle(fontSize: 10, color: Colors.grey)
+              )
+          ),
+          Align(
+            alignment: Alignment(0, -0.1),
+            child: ElevatedButton(
+              child: const Text('Sign in with Apple'),
+              onPressed: null,
+            ),
+          ),
+          Align(
+            alignment: Alignment(0, 0.1),
+            child: ElevatedButton(
+              child: const Text('Sign in with Google'),
+              onPressed: null,
+            ),
+          ),
+          Align(
+            alignment: Alignment(0, 0.3),
+            child: ElevatedButton(
+              child: const Text('Sign in with Facebook'),
+              onPressed: null,
+            ),
+          ),
+          Align(
+              alignment: Alignment(0, 0.9),
+              child: FloatingActionButton.extended(
+                  extendedPadding:
+                  EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                  label: Text('LOG IN TO MY ACCOUNT'),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.blue,
+                  onPressed: () {
+                    //Navigator.push(
+                      //context,
+                      //MaterialPageRoute(builder: (context) => CreateAcountPage()),
+                    //);
+                  }
+              )
+          ),
+          ]
+    ),
+      ),
+    );
+  }
+}
+
+
