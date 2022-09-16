@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: FloatingActionButton.extended(
                       extendedPadding:
                       const EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
-                      label: Text('Scan'),
+                      label: Text('SCAN'),
                       backgroundColor: Colors.blue,
                       onPressed: null,
                     )
@@ -112,15 +112,136 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(fontSize: 10, color: Colors.grey)
                     )
                 ),
-                const Align(
-                    alignment: const Alignment(0, 0.9),
+                Align(
+                    alignment: Alignment(0, 0.9),
                     child: FloatingActionButton.extended(
                       extendedPadding:
-                      const EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                      EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
                       label: Text('LOG IN TO AN EXISTING ACCOUNT'),
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.blue,
-                      onPressed: null,
+                      onPressed: () {
+                        showModalBottomSheet<dynamic>(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (BuildContext bc) {
+                              return Stack(
+                                children: <Widget>[
+                               Container(
+                              decoration: new BoxDecoration(
+                              //color: forDialog ? Color(0xFF737373) : Colors.white,
+                              borderRadius: new BorderRadius.only(
+                              topLeft: const Radius.circular(25.0),
+                              topRight: const Radius.circular(25.0))),
+                              ),
+                                Align(
+                                alignment: Alignment(1, -1),
+                                  // ignore: unnecessary_new
+                                  child: new IconButton(
+                                    icon: new Icon(Icons.close),
+                                    onPressed: () => Navigator.of(context).pop(null),
+                                  ),
+                                ),
+                                  Align(
+                                  alignment: Alignment(-1, -0.75),
+                                    child: Text(
+                                      "Login to your account",
+                                      style: TextStyle(fontSize: 22, fontWeight: FontWeight. bold)
+                                  )
+                              ),
+                              Align(
+                              alignment: Alignment(-1, -0.65),
+                              child: Text(
+                                      "Email Address",
+                                      style: TextStyle(fontSize: 10, color: Colors.grey )
+                                  )
+                              ),
+                              Align(
+                              alignment: Alignment(-1, -0.55),
+                              child: TextField(
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                  labelText: 'Email Address',
+                                  hintText: 'Enter Email Address',
+                                    ),
+                                    )
+                                  ),
+                              Align(
+                              alignment: Alignment(-1, -0.35),
+                              child: Text(
+                                      "Password",
+                                      style: TextStyle(fontSize: 10, color: Colors.grey )
+                                  )
+                                  ),
+                              Align(
+                              alignment: Alignment(-1, -0.25),
+                              child: TextField(
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Password',
+                                      hintText: 'Enter Password',
+                                    ),
+                                  ),
+                                  ),
+                                  Align(
+                                  alignment: Alignment(0, -0.05),
+                                  child: FloatingActionButton.extended(
+                                    extendedPadding:
+                                    EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                                    label: Text('LOGIN'),
+                                    backgroundColor: Colors.blue,
+                                    foregroundColor: Colors.white,
+                                    onPressed: null,
+                                  ),
+                                  ),
+                                  Align(
+                                      alignment: Alignment(0, 0.05),
+                                      child: Text(
+                                          "Forgot Password",
+                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight. bold, color: Colors.blue)
+                                      )
+                                  ),
+                                  Align(
+                                      alignment: Alignment(0, 0.15),
+                                      child: Text(
+                                          "---------------------------------------or---------------------------------",
+                                          style: TextStyle(fontSize: 10, color: Colors.grey)
+                                      )
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0, 0.25),
+                                    child: ElevatedButton(
+                                    child: const Text('Sign in with Apple'),
+                                        onPressed: null,
+                                  ),
+                              ),
+                                  Align(
+                                    alignment: Alignment(0, 0.35),
+                                    child: ElevatedButton(
+                                      child: const Text('Sign in with Google'),
+                                      onPressed: null,
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0, 0.45),
+                                    child: ElevatedButton(
+                                      child: const Text('Sign in with Facebook'),
+                                      onPressed: null,
+                                    ),
+                                  ),
+                                  Align(
+                                      alignment: Alignment(0, 0.9),
+                                      child: Text(
+                                          "SIGN UP NOW",
+                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight. bold, color: Colors.blue)
+                                      )
+                                  ),
+                                ],
+                              );
+                            });
+                      },
                     )
                 ),
               ]
