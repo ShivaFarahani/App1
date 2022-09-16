@@ -161,9 +161,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       style: TextStyle(fontSize: 10, color: Colors.grey )
                                   )
                                   ),
-                              Align(
-                              alignment: Alignment(-1, -0.25),
-                              child: TextField(
+                                Align(
+                                  alignment: Alignment(-1, -0.25),
+                                  child: TextField(
                                     obscureText: true,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
@@ -330,6 +330,10 @@ class SignupPage extends StatelessWidget{
                       gravity: ToastGravity.TOP,
                       timeInSecForIosWeb: 1,
                       fontSize: 16.0);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CreateAcountPage()),
+                  );
                 } else if (_emailController.text.isEmpty) {
                   Fluttertoast.showToast(
                       msg: 'Enter Email',
@@ -384,16 +388,190 @@ class SignupPage extends StatelessWidget{
                   label: Text('LOG IN TO MY ACCOUNT'),
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.blue,
-                  onPressed: () {
-                    //Navigator.push(
-                      //context,
-                      //MaterialPageRoute(builder: (context) => CreateAcountPage()),
-                    //);
-                  }
+                  onPressed: null,
               )
           ),
           ]
     ),
+      ),
+    );
+  }
+}
+
+class CreateAcountPage extends StatelessWidget{
+  final _formKey = GlobalKey<FormState>();
+  @override
+  String pass = '';
+  String confirmpass = '';
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text('Create your account')
+      ),
+      body: Center(
+          child: Stack(
+              children: <Widget>[
+                Align(
+                    alignment: Alignment(-1, -0.6),
+                    child: Text(
+                        "Your Profile",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight. bold)
+                    )
+                ),
+                Align(
+                    alignment: Alignment(-1, -0.5),
+                    child: Text(
+                        "First Name",
+                        style: TextStyle(fontSize: 10, color: Colors.grey )
+                    )
+                ),
+                Align(
+                  alignment: Alignment(-1, -0.4),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'First Name',
+                      hintText: 'Enter first name',
+                    ),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-1, -0.25),
+                    child: Text(
+                        "Last Name",
+                        style: TextStyle(fontSize: 10, color: Colors.grey )
+                    )
+                ),
+                Align(
+                  alignment: Alignment(-1, -0.15),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Last Name',
+                      hintText: 'Enter last name',
+                    ),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-1, 0),
+                    child: Text(
+                        "Email Address",
+                        style: TextStyle(fontSize: 10, color: Colors.grey )
+                    )
+                ),
+                Align(
+                  alignment: Alignment(-1, 0.1),
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    //decoration: InputDecoration(labelText: 'Enter email address'),
+                    controller: _emailController,
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-1, 0.3),
+                    child: Text(
+                        "Password",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight. bold)
+                    )
+                ),
+                Align(
+                    alignment: Alignment(-1, 0.4),
+                    child: Text(
+                        "Password",
+                        style: TextStyle(fontSize: 10, color: Colors.grey )
+                    )
+                ),
+                Align(
+                  alignment: Alignment(-1, 0.5),
+                  child: TextFormField(
+                    obscureText: true,
+                    //keyboardType: TextInputType.visiblePassword,
+                    //decoration: InputDecoration(labelText: ''),
+                      onChanged: (value) {
+                        pass = value;
+                      }
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(-1, 0.65),
+                    child: Text(
+                        "Confirm Password",
+                        style: TextStyle(fontSize: 10, color: Colors.grey )
+                    )
+                ),
+                Align(
+                  alignment: Alignment(-1, 0.75),
+                  child: TextFormField(
+                    obscureText: true,
+                    //keyboardType: TextInputType.visiblePassword,
+                    //decoration: InputDecoration(labelText: ''),
+                      onChanged: (value) {
+                        confirmpass = value;
+                      }
+                  ),
+                ),
+                Align(
+                    alignment: Alignment(0, 0.95),
+                    child: FloatingActionButton.extended(
+                      extendedPadding:
+                      const EdgeInsets.only(left: 100, right: 100, top: 20, bottom: 20),
+                      label: Text('CONTINUE'),
+                      backgroundColor: Colors.blue,
+                      onPressed: () {
+                        _isValid = EmailValidator.validate(_emailController.text);
+                        if (_isValid) {
+                          Fluttertoast.showToast(
+                              msg: "Valid Email",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              fontSize: 16.0);
+                        } else if (_emailController.text.isEmpty) {
+                          Fluttertoast.showToast(
+                              msg: 'Enter Email',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              fontSize: 16.0);
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: 'Enter a Valid Email',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              fontSize: 16.0);
+                        }
+                        if (pass.isEmpty) {
+                          Fluttertoast.showToast(
+                              msg: 'Enter Password',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              fontSize: 16.0);
+                        }
+                        else if (confirmpass.isEmpty) {
+                          Fluttertoast.showToast(
+                              msg: 'Confirm Password',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              fontSize: 16.0);
+                        }
+                        else if (confirmpass != pass) {
+                          Fluttertoast.showToast(
+                              msg: 'Confirmed Password does not match',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1,
+                              fontSize: 16.0);
+                        }
+                      },
+                    )
+                ),
+              ]
+          )
       ),
     );
   }
