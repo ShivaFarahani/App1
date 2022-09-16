@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(const MyApp());
 }
-
+final _emailController = TextEditingController();
+bool _isValid = false;
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -49,6 +52,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _errorMessage = '';
 
   void _incrementCounter() {
     setState(() {
@@ -60,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+
+
 
   @override
 
@@ -158,14 +165,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                               Align(
                               alignment: Alignment(-1, -0.55),
-                              child: TextField(
-                                      obscureText: true,
-                                      decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                  labelText: 'Email Address',
-                                  hintText: 'Enter Email Address',
-                                    ),
-                                    )
+                              child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: InputDecoration(labelText: 'Email'),
+                                controller: _emailController,
+                              ),
                                   ),
                               Align(
                               alignment: Alignment(-1, -0.35),
@@ -193,7 +197,31 @@ class _MyHomePageState extends State<MyHomePage> {
                                     label: Text('LOGIN'),
                                     backgroundColor: Colors.blue,
                                     foregroundColor: Colors.white,
-                                    onPressed: null,
+                                    onPressed: () {
+                                      _isValid = EmailValidator.validate(_emailController.text);
+                                      if (_isValid) {
+                                        Fluttertoast.showToast(
+                                            msg: "Valid Email",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.TOP,
+                                            timeInSecForIosWeb: 1,
+                                            fontSize: 16.0);
+                                      } else if (_emailController.text.isEmpty) {
+                                        Fluttertoast.showToast(
+                                            msg: 'Enter Email',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.TOP,
+                                            timeInSecForIosWeb: 1,
+                                            fontSize: 16.0);
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg: 'Enter a Valid Email',
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.TOP,
+                                            timeInSecForIosWeb: 1,
+                                            fontSize: 16.0);
+                                      }
+                                    },
                                   ),
                                   ),
                                   Align(
